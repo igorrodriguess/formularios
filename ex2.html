@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>formulario</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+<script type="text/javascript">
+
+		function validaForm(){
+			var nome= document.getElementById('txtnome');
+			if(nome.value == ""){
+				alert('O campo Nome nao foi preenchido!');
+				document.getElementById('help-txtnome').innerHTML="Nome em branco";
+				nome.focus();
+				return false;
+			} else {
+				document.getElementById('help-txtnome').innerHTML="";
+			}	
+		}
+		function maiusculo(campo){
+			var ma = document.getElementById(campo);
+			ma.value = ma.value.toUpperCase();
+		}
+		function minusculo(campo){
+			var mi = document.getElementById(campo);
+			mi.value = mi.value.toLowerCase();
+		}
+		function mascara(campo){
+			if (document.getElementById('txtcelular').value.length==2){
+				document.getElementById('txtcelular').value = "("+
+				document.getElementById('txtcelular').value + ")";
+			}
+			if (document.getElementById('txtcelular').value.length==9){
+				document.getElementById('txtcelular').value = "("+
+				document.getElementById('txtcelular').value + ")";
+		}
+	}
+		function formatar(scr,mask){
+			var i = scr.value.length;
+			var texto = mask.substring(i);
+			if (texto.substring(0,1) != '#'){
+				scr.value += texto.substring(0,1);
+			}
+		}
+		function mostrarResultado(box,num_max,campospan){
+			var contagem_carac = box.length;
+		if (contagem_carac != 0){
+			document.getElementById(campospan).innerHTML =
+				contagem_carac + "caracteres digitados";
+			if (contagem_carac ==1){
+			document.getElementById(campospan).innerHTML = 
+				contagem_carac + "caracter digitado";
+			}
+			if (contagem_carac >= num_max){
+			document.getElementById(campospan).innerHTML =
+				contagem_carac + "Limite de caracteres excedido!";
+			}
+			else{
+				document.getElementById(campospan).innerHTML = 
+					contagem_carac + "Ainda não temos nada digitado..."
+			}
+		}
+		
+		
+		
+</script>
+</head>
+<body>
+
+<form>
+<fieldset>
+<!-- Form Nome -->
+
+<legend>HTML5/JAVASCRIPT</legend>
+
+	 <div class="form-group">
+    	<label for="txtnome">Nome</label>
+    	<input type="text" class="form-control" id="txtnome" name="txtnome" placeholder="Nome">
+    	<span class="help-block" id="help txtmome">Preencha seu nome</span>
+  	</div>
+
+  	<div class="form-group">
+    	<label for="txtsobrenome">sobrenome</label>
+    	<input type="text" class="form-control" id="txtsobrenome" name="txtsobrenome" placeholder="Sobrenome" required="" onchange="maiusculo('txtsobrenome');">
+    	<span class="help-block">Preencha seu sobrenome</span>
+  	</div>
+
+	<div class="form-group">
+    	<label for="email">E-mail</label>
+    	<input type="email" class="form-control" id="txtemail" name="txtemail" placeholder="e-mail" required="" onchange="minusculo('txtemail');">
+    	<span class="help-block">Preencha seu e-mail</span>
+  	</div>
+
+  	<div class="form-group">
+    	<label for="celular">Celular</label>
+    	<input type="tel" class="form-control" id="telefone" name="celular" placeholder="(99)99999-9999" required="" onkeypress="mascara()" maxlength="14";>
+    	<span class="help-block">Digite seu celular</span>
+  	</div>
+
+  	<div class="form-group">
+    	<label for="txtcpf">CPF</label>
+    		<input type="text" class="form-control" id="txtcpf" name="txtcpf" placeholder="999.999.999-99" required="" onkeypress="formatar(this,'###.###.###-##');" maxlength="14">
+    	<span class="help-block">Digite seu cpf</span>
+  	</div>
+
+  	<div class="form-group">
+    	<label for="txtdata">DATA</label>
+    		<input type="text" class="form-control" id="txtdata" name="txtdata" placeholder="99/99/9999" required="" onkeypress="formatar(this,'##/##/####');" maxlength="10">
+    	<span class="help-block">Digite a data</span>
+  	</div>
+
+  	<div class="form-group">
+    	<label for="txtdata">DATA</label>
+    		<input type="date" class="form-control" id="txtdata" name="txtdata" placeholder="99/99/9999" required="" maxlength="10">
+    	<span class="help-block">Digite a data</span>
+  	</div>
+	
+	<div class="form-group">
+    	<label for="txtmsg">MENSAGEM</label><br/>
+    	<textarea id="txtmsg" row="5" cols="45" onkeyup="mostrarResultado(this.value,50,'spcontando')"></textarea><br/>
+    	<span id="spcontando">Ainda não temos nada digitado</span><br/>
+    	<span id="sprestante"></span>
+  	</div>
+
+
+
+	
+	<button onclick="validaForm()">Enviar</button>
+
+</fieldset>
+</form>
+
+
+
+
+
+</body>
+</html>
